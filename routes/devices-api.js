@@ -74,18 +74,33 @@ devicesApi.get('/devices/:id/colors', (req,res,next)=>{
   });
 });
 
-devicesApi.get('/devices/:id/repairs', (req,res,next)=>{
+devicesApi.get('/devices/:id/repairType', (req,res,next)=>{
   if(!mongoose.Types.ObjectId.isValid(req.params.id)){
     res.status(400)
     .json({message: 'Specified id is not valid'});
     return;
   }
-  Device.findOne({'_id': req.params.id}, '-_id repair', (err, theRepairs)=>{
+  Device.findOne({'_id': req.params.id}, '-_id repairType', (err, theRepairTypes)=>{
     if(err){
       res.json(err);
       return;
     }
-    res.json(theRepairs);
+    res.json(theRepairTypes);
+  });
+});
+
+devicesApi.get('/devices/:id/repairCost', (req,res,next)=>{
+  if(!mongoose.Types.ObjectId.isValid(req.params.id)){
+    res.status(400)
+    .json({message: 'Specified id is not valid'});
+    return;
+  }
+  Device.findOne({'_id': req.params.id}, '-_id repairCost', (err, theRepairCost)=>{
+    if(err){
+      res.json(err);
+      return;
+    }
+    res.json(theRepairCost);
   });
 });
 

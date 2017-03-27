@@ -34,7 +34,6 @@ repairDetailsApi.post('/repair-details',(req,res,next)=>{
     city: req.body.city}
   );
 
-  const dateRequested = new Date();
 
 
 //---------------- Business Logic ----------------
@@ -55,9 +54,10 @@ repairDetailsApi.post('/repair-details',(req,res,next)=>{
     deviceModel: req.body.model,
     deviceColor: req.body.color,
     repairType: req.body.repairType,
-    repairCost: repairCost,
+    repairCost: req.body.repairCost,
     location: theLocation,
-    dateRequested: dateRequested
+    requestedDate: req.body.requestedDate,
+    requestedTime: req.body.requestedTime
   });
 
 

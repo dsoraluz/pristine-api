@@ -8,7 +8,8 @@ const deviceSchema = new Schema(
     device: {type: String},
     model: {type: String},
     colors: {type: Array},
-    repair: {type: Array},
+    repairType: {type: Array},
+    repairCost: {type: Array},
     modelNumbers: {type: Array}
   },
   {

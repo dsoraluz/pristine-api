@@ -19,7 +19,8 @@ const repairDetailSchema = new Schema(
     repairCost: {type: String},
     review: {type: [Review.schema]},
     location: {type: [Location.schema]},
-    dateRequested: {type: Date},
+    requestedDate: {type: Date},
+    requestedTime: {type: String},
     dateCompleted: {type: Date}
   },
   {
