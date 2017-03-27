@@ -31,7 +31,7 @@ repairDetailsApi.post('/repair-details',(req,res,next)=>{
 
   const theLocation = new Location({
     county: req.body.county,
-    city: req.body.city}
+    city: req.body.area}
   );
 
 
