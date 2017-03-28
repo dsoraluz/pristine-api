@@ -1,7 +1,17 @@
-const express = require('/require');
+const express = require('express');
 const applyApi = express.Router();
 
 const Applicant = require('../models/applicant-model');
+
+applyApi.get('/apply', (req,res,next)=>{
+  Applicant.find((err,applicationList)=>{
+    if(err){
+      res.json(err);
+      return;
+    }
+    res.json(applicationList);
+  });
+});
 
 applyApi.post('/apply', (req,res,next)=>{
 
@@ -24,6 +34,7 @@ applyApi.post('/apply', (req,res,next)=>{
     bestContactTime: req.body.bestContactTime,
     ableToStart: req.body.ableToStart,
     pastExperience: req.body.pastExperience,
+    experienceDescription: req.body.experienceDescription,
     numberOfPhonesDone: req.body.numberOfPhonesDone,
     numberOfTabletsDone: req.body.numberOfTabletsDone,
     formalTraining: req.body.formalTraining,
