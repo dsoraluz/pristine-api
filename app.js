@@ -7,6 +7,8 @@ const bodyParser   = require('body-parser');
 const layouts      = require('express-ejs-layouts');
 const mongoose     = require('mongoose');
 const dotenv       = require('dotenv');
+const session      = require('express-session');
+const passport     = require('passport');
 // allows different domains to access the API.
 const cors         = require('cors');
 
@@ -31,17 +33,37 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 
+//----------------- For Passport (BEGIN) -----------------------
+app.use(session({
+  secret: 'angular auth passport secret shhhh',
+  resave: true,
+  saveUninitialized: true,
+  cookie : { httpOnly: true, maxAge: 2419200000 }
+  //httponly, can only access cookie through http
+  //max makes is last longer
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+const passportSetup = require('./config/passport');
+passportSetup(passport);
+
+//--------------- END PASSPORT -----------------------------------
+
 //---------------------- CORS -----------
 app.use(cors());
 
 
 //--------------- Routes Go Here ----------------------
 const index = require('./routes/index');
+const authRoutes = require('./routes/auth-routes');
 const devicesApi = require('./routes/devices-api');
 const techsApi = require('./routes/techs-api');
 const customersApi = require('./routes/customers-api');
 const repairDetailsApi = require('./routes/repair-detail-api');
 app.use('/', index);
+app.use('/', authRoutes);
 app.use('/api',devicesApi);
 app.use('/api', techsApi);
 app.use('/api', customersApi);

@@ -60,6 +60,28 @@ repairDetailsApi.post('/repair-details',(req,res,next)=>{
     requestedTime: req.body.requestedTime
   });
 
+  // theCustomer.save((err)=>{
+  //   if(err){
+  //     res.json(err);
+  //     return;
+  //   }
+  //   res.json({
+  //     message: 'new customer added!',
+  //     id: theRepair._id
+  //   });
+  // });
+  //
+  // theLocation.save((err)=>{
+  //   if(err){
+  //     res.json(err);
+  //     return;
+  //   }
+  //   res.json({
+  //     message: 'new location added!',
+  //     id: theRepair._id
+  //   });
+  // });
+
 
   theRepair.save((err)=>{
     if(err){
