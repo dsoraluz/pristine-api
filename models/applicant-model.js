@@ -20,12 +20,13 @@ const applicantSchema = new Schema(
     workInUs: {type: boolean, required: true},
     over18: {type: boolean, required: true},
     bestContactTime: {type: String, required: true},
+    transportation: {type: String, required: true},
     ableToStart: {type: String, required: true},
     pastExperience: {type: String, required: true},
     numberOfPhonesDone: {type: String, required: true},
     numberOfTabletsDone: {type: String},
     formalTraining: {type: String},
-    referredBy: {type: String, required: true},
+    referredBy: {type: String, required: true}
   },
   {
     timestamps:
