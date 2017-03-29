@@ -33,6 +33,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(layouts);
 
+//---------------------- CORS -----------
+app.use(cors());
+
+
+
 //----------------- For Passport (BEGIN) -----------------------
 app.use(session({
   secret: 'angular auth passport secret shhhh',
@@ -51,8 +56,6 @@ passportSetup(passport);
 
 //--------------- END PASSPORT -----------------------------------
 
-//---------------------- CORS -----------
-app.use(cors());
 
 
 //--------------- Routes Go Here ----------------------
@@ -64,7 +67,7 @@ const customersApi = require('./routes/customers-api');
 const repairDetailsApi = require('./routes/repair-detail-api');
 const applyApi = require('./routes/application-api');
 app.use('/', index);
-app.use('/', authRoutes);
+app.use('/api', authRoutes);
 app.use('/api',devicesApi);
 app.use('/api', techsApi);
 app.use('/api', customersApi);

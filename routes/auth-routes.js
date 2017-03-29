@@ -107,7 +107,7 @@ function ifNotLogged( req, res, next){
 }
 
 authRoutes.get('/private', ifNotLogged, (req, res, next)=>{
-  res.json({ message: 'Todays lucky numnber is 777'});
+  res,json({ message: 'Todays lucky numnber is 777'});
 });
 
 module.exports = authRoutes;
