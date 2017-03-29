@@ -35,6 +35,12 @@ app.use(layouts);
 
 //---------------------- CORS -----------
 app.use(cors());
+// if (process.env.NODE_ENV !== 'production') {
+//   app.use(cors({
+//     credentials: true,
+//     origin: ['http://localhost:4200', 'http://localhost:8000']
+//   }));
+// }
 
 
 
@@ -56,7 +62,10 @@ passportSetup(passport);
 
 //--------------- END PASSPORT -----------------------------------
 
-
+// //Middleware for redirect to angular index file.
+app.use((req, res, next) => {
+  res.sendfile(__dirname + '/public/index.html');
+});
 
 //--------------- Routes Go Here ----------------------
 const index = require('./routes/index');
