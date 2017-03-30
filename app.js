@@ -63,9 +63,9 @@ passportSetup(passport);
 //--------------- END PASSPORT -----------------------------------
 
 // //Middleware for redirect to angular index file.
-app.use((req, res, next) => {
-  res.sendfile(__dirname + '/public/index.html');
-});
+// app.use((req, res, next) => {
+//   res.sendfile(__dirname + '/public/index.html');
+// });
 
 //--------------- Routes Go Here ----------------------
 const index = require('./routes/index');
