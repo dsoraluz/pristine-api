@@ -130,7 +130,7 @@ repairDetailsApi.post('/repair-details',(req,res,next)=>{
         // Plain text body
         html: `<h4> Device: ${device} ${model}, ${color} </h4><br/><br/>
         <h4> Issue: ${issue} </h4><br/><br/>
-        <h4> cost: ${cost} </h4><br/><br/>
+        <h4> cost: $${cost} </h4><br/><br/>
         <h4> Date and Time: ${date}, ${time} </h4><br/><br/>
         <h4> Name: ${toFirstName} </h4><br/><br/>
         <h4> County: ${county} </h4><br/><br/>
