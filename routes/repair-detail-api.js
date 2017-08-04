@@ -9,6 +9,9 @@ const Location = require('../models/location-model');
 
 const nodemailer = require('nodemailer');
 
+const handlebars = require('handlebars');
+const MJML = require('mjml');
+
 
 //Route that returns all repair details from API
 repairDetailsApi.get('/repair-details',(req,res,next)=>{
@@ -111,13 +114,179 @@ repairDetailsApi.post('/repair-details',(req,res,next)=>{
     let time = req.body.requestedTime;
 
     // Create reusable transporter object using the default SMTP transport
-      let transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: process.env.GMAIL_USERNAME, //User Email address
-          pass: process.env.GMAIL_PASSWORD
-        }
-      });
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USERNAME, //User Email address
+        pass: process.env.GMAIL_PASSWORD
+      }
+    });
+
+    //The MJML template.
+    const template = handlebars.compile(`
+      <mjml>
+        <mj-head>
+          <mj-font name="Varela Round" href="https://fonts.googleapis.com/css?family=Varela+Round"/>
+          <mj-attributes>
+            <mj-all padding="" />
+            <mj-class name="preheader" color="#000000" font-size="11px" font-family="'Varela Round', sans-serif" padding="0" />
+          </mj-attributes>
+          <mj-style inline="inline">
+            a { text-decoration: none; color: inherit; }
+          </mj-style>
+
+        </mj-head>
+        <mj-body>
+          <mj-container background-color="#D0D0D0">
+            <mj-section full-width="full-width" padding="10px 25px">
+              <mj-group>
+
+              </mj-group>
+            </mj-section>
+
+            <mj-section background-color="#32373C" padding="10px 0">
+              <mj-column>
+                <mj-image src="http://i.imgur.com/jHXJgtq.png?1" alt="logo" width="375px" padding="10px 0">
+                </mj-image>
+              </mj-column>
+            </mj-section>
+            <mj-section background-color="#ffffff" padding-top="20px">
+              <mj-column width="100%">
+                <mj-image src="http://i.imgur.com/j4CCMDU.png" width="150px"alt="city" width="px" padding="10px 25px">
+                </mj-image>
+                <mj-text align="center" font-size="30px" font-weight="bold" line-height="1.5" padding="10px 0">
+                  Thank you for scheduling your repair <br/>with Pristine Wireless!
+                  <br/>
+
+                </mj-text>
+              </mj-column>
+            </mj-section>
+
+            <mj-section background-color="#ffffff" padding-top="20px">
+              <mj-column>
+                <mj-text align="center" color="#32373C" font-size="18px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top">
+                  <h4> Device: {{device}} {{model}}, {{color}} </h4>
+             		 	<h4> Issue: {{issue}}</h4>
+              		<h4> Cost: \${{cost}}</h4>
+              		<h4> Date and Time: {{date}}, {{time}} </h4>
+             			<h4> Name: {{toFirstName}}</h4>
+                  <h4> County: {{county}}</h4>
+                  <h4> Area: {{area}}</h4>
+              		<h4> Email: {{email}}</h4>
+              		<h4> Phone: {{phone}}</h4>
+                </mj-text>
+              </mj-column>
+            </mj-section>
+
+            <mj-section background-color="#fff" padding="20px 0">
+              <mj-column>
+                <mj-text align="center" padding-left="10px" color="#32373C" font-size="35px" vertical-align="top">
+                <strong>What Happens Next?</strong>
+              </mj-text>
+              </mj-column>
+            </mj-section>
+
+            <mj-section background-color="#ffffff" padding="20px 0">
+              <mj-column>
+                <mj-image src="http://i.imgur.com/jxyEJaC.png" alt="Pristine Specialist" width="135px" padding="0 25px">
+                </mj-image>
+                <mj-text align="center" color="#32373C" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top" padding="20px 25px">
+                  <p style="font-size: 15px;color:#32373C;">Our Pristine Specialists are immediately notified of your request.</p>
+                </mj-text>
+              </mj-column>
+              <mj-column>
+                <mj-image src="http://i.imgur.com/fD41LwV.png" alt="message" width="135px" padding="0 25px">
+                </mj-image>
+                <mj-text align="center" color="#32373C" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top" padding="20px 25px">
+
+                  <p style="font-size: 15px;color:#32373C;">You will receive a call or text message from a Pristine Specialist.</p>
+                </mj-text>
+              </mj-column>
+              <mj-column>
+                <mj-image src="http://i.imgur.com/X2wuSoP.png" alt="payment" width="135px" padding="0 25px">
+                </mj-image>
+                <mj-text align="center" color="#32373C" font-size="20px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top" padding="20px 25px">
+                  <p style="font-size: 15px;color:#32373C;">Payment will be received upon completion of repair.</p>
+                </mj-text>
+              </mj-column>
+            </mj-section>
+
+            <mj-section background-color="#32373C" padding="10px">
+              <mj-column width="66%">
+                <mj-text align="left" color="#ffffff" font-size="14px" font-family="Lato, Helvetica, Arial, sans-serif" vertical-align="top" padding="40px 30px">
+
+                  <span style="font-size:25px; color: #8BC541; font-weight:bold; line-height:30px">Any questions or concerns:</span>
+                  <br />
+                  <br />
+                  <span style="font-size:30px; font-weight:bold">954-633-5010</span>
+                </mj-text>
+              </mj-column>
+              <mj-column width="33%">
+                <mj-image src="http://i.imgur.com/Iz1h5vP.png" alt="Last city" align="center" border="none" width="" padding="30px 20px">
+                </mj-image>
+              </mj-column>
+            </mj-section>
+
+            <mj-section background-color="#f3f3f3">
+              <mj-column>
+                <mj-image align="right" src="http://i.imgur.com/Sh5Drs7.png" href="https://www.instagram.com/pristinewireless/" width="64px" alt="Instagram" align="center" border="none" padding="30px 20px">
+                      </mj-image>
+              </mj-column>
+              <mj-column>
+                <mj-image align="center" src="http://i.imgur.com/8wwZ3Ah.png" href="https://www.yelp.com/biz/pristine-wireless-miami-5" width="112px" alt="Yelp" align="center" border="none" padding="2px 20px"></mj-image>
+              </mj-column>
+
+              <mj-column>
+                <mj-image align="left" src="http://i.imgur.com/bLK0gvq.png" href="https://www.facebook.com/pristinewireless" width="64px" alt="Facebook" align="center" border="none" padding="30px 20px">
+                </mj-image>
+              </mj-column>
+            </mj-section>
+
+
+            <mj-section background-color="#f3f3f3">
+              <mj-column>
+                <mj-text align="center">
+                  Pristine Wireless &copy 2017
+                </mj-text>
+              </mj-column>
+            </mj-section>
+
+            <mj-section>
+              <mj-column>
+                <mj-image src="http://z2mx.mjt.lu/img/z2mx/b/l4r/n83.png" alt="bottom border" align="center" border="none" width="600" container-background-color="transparent">
+                </mj-image>
+              </mj-column>
+            </mj-section>
+
+            <mj-section full-width="full-width" padding="10px">
+
+            </mj-section>
+          </mj-container>
+        </mj-body>
+      </mjml>
+
+      `);
+
+      // Create context data to populate template.
+      const context = {
+        toFirstName: req.body.firstName,
+        phone:req.body.phone,
+        email: req.body.email,
+        county: req.body.county,
+        area: req.body.area,
+        device: req.body.device,
+        model: req.body.model,
+        color: req.body.color,
+        issue: req.body.repairType,
+        cost: req.body.repairCost,
+        date: req.body.requestedDate,
+        time: req.body.requestedTime
+      };
+
+      //Create mjml email to repair data.
+      const mjml = template(context);
+      //Transform mjml to html.
+      const html = MJML.mjml2html(mjml).html;
 
       // Setup email data with unicode symbols
       let mailOptions = {
@@ -128,16 +297,11 @@ repairDetailsApi.post('/repair-details',(req,res,next)=>{
         // Subject Line
         subject: `The Next Step To Repair Your Device`,
         // Plain text body
-        html: `<h4> Device: ${device} ${model}, ${color} </h4><br/><br/>
-        <h4> Issue: ${issue} </h4><br/><br/>
-        <h4> cost: $${cost} </h4><br/><br/>
-        <h4> Date and Time: ${date}, ${time} </h4><br/><br/>
-        <h4> Name: ${toFirstName} </h4><br/><br/>
-        <h4> County: ${county} </h4><br/><br/>
-        <h4> Area: ${area} </h4><br/><br/>
-        <h4> Email: ${email} </h4><br/><br/>
-        <h4> Phone: ${phone} </h4><br/><br/>`
+        html: `${html}`
       };
+
+
+
 
       // Send mail with defined transport object
       transporter.sendMail(mailOptions, (error, info)=>{
