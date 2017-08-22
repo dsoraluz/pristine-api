@@ -16,7 +16,7 @@ const repairDetailSchema = new Schema(
     deviceModel: {type: String},
     deviceColor: {type: String},
     repairType: {type: String},
-    repairCost: {type: String},
+    repairCost: {type: Number},
     review: {type: [Review.schema]},
     location: {type: [Location.schema]},
     requestedDate: {type: Date},

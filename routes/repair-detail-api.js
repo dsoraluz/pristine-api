@@ -8,6 +8,7 @@ const Customer = require('../models/customer-model');
 const Location = require('../models/location-model');
 
 const nodemailer = require('nodemailer');
+const moment = require ('moment');
 
 const handlebars = require('handlebars');
 const MJML = require('mjml');
@@ -279,7 +280,7 @@ repairDetailsApi.post('/repair-details',(req,res,next)=>{
         color: req.body.color,
         issue: req.body.repairType,
         cost: req.body.repairCost,
-        date: req.body.requestedDate,
+        date: moment(req.body.requestedDate).format('MMM Do YYYY'),
         time: req.body.requestedTime
       };
 

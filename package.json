@@ -21,6 +21,7 @@
     "handlebars": "^4.0.10",
     "materialize-css": "^0.98.2",
     "mjml": "^3.3.3",
+    "moment": "^2.18.1",
     "mongoose": "~4.8.5",
     "morgan": "~1.7.0",
     "mustache": "^2.3.0",
