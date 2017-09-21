@@ -1,0 +1,142 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+}
+
+header {
+  background-color: purple;
+  color: white;
+  padding-left: 200px;
+}
+
+nav>a {
+  padding: 10px;
+}
+
+a {
+  color: deeppink;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.main-content {
+  padding-left: 200px;
+}
+
+.main-content>h2 {
+  margin: 25px 0 15px 0;
+}
+
+.main-content>p {
+  margin: 0 0 25px 0;
+}
+
+.ads {
+  padding-left: 200px;
+  margin: 25px 0 0 0;
+}
+
+.ads > ul {
+  padding-left: 70px;
+}
+
+.ads > ul > li {
+  color: deeppink;
+  line-height: 1.5;
+  padding-left: 5px;
+}
+
+.ads > button {
+  background-color: orange;
+  border: 3px solid orange;
+  padding: 8px 16px;
+  font-size: 20px;
+  margin: 20px 0;
+
+}
+
+footer {
+  /*clear: both;*/
+  background-color: #F2F2F1;
+
+  padding-left: 200px;
+  min-height: 200px;
+}
+
+footer a {
+  color: #4d4d4d;
+  font-size: 20px;
+  border-left: 1px solid deeppink;
+  margin: 15px 0 0 10px;
+  padding: 25px  30px 25px 10px;
+}
+
+.footer-dos {
+  display: block;
+  margin-bottom: 30px;
+}
+
+.footer-dos span {
+  color: gray;
+}
+
+.terms {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+nav {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  nav {
+    display: block;
+  }
+  section {
+    /*to correct the weird stuff that happens with floats.*/
+    overflow: auto;
+  }
+
+  .main-content, .ads {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+  }
+  .main-content {
+    width: 75%;
+
+  }
+
+  .ads {
+    width: 25%;
+  }
+}
+
+/* Large size styles */
+@media (min-width: 1100px){
+  h1 {
+  font-size: 75px;
+}
+
+  h2 {
+    font-size: 50px;
+
+  }
+
+  p,a, .ads {
+    font-size: 30px;
+  }
+
+  .main-content {
+    width: 50%;
+  }
+
+  .ads {
+    width: 50%;
+  }
+}

@@ -13,7 +13,7 @@ const techSchema = new Schema(
     email: {type: Array},
     serviceArea: {type: Object},
     repairs: {type: [Repair.schema]},
-    reviews: {type: [Review.schema]},
+    reviews: {type: [Review.schema]}
   },
   {
     timestamps:
