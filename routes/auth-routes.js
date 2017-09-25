@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const bcrypt = require('bcrypt');
-const flash = require('connect-flash');
+// const flash = require('connect-flash');
 
 const User  = require('../models/user-model');
 

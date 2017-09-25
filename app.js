@@ -11,7 +11,7 @@ const session      = require('express-session');
 const passport     = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt       = require('bcrypt');
-// const flash        = require('connect-flash');
+const flash        = require('connect-flash');
 const User         = require('./models/user-model.js');
 // allows different domains to access the API.
 const cors         = require('cors');
@@ -49,73 +49,73 @@ if (process.env.NODE_ENV !== 'production') {
 
 
 //----------------- For Passport (BEGIN) -----------------------
-// app.use(session({
-//   secret: 'angular auth passport secret shhhh',
-//   resave: true,
-//   saveUninitialized: true,
-//   cookie : { httpOnly: true, maxAge: 2419200000 }
-//   //httponly, can only access cookie through http
-//   //max makes is last longer
-// }));
-//
-// app.use(flash());
-// app.use(passport.initialize());
-// app.use(passport.session());
-//
-// // const passportSetup = require('./config/passport');
-// // passportSetup(passport);
-//
-// app.use((req,res,next)=>{
-//   if (req.user){
-//     res.locals.user = req.user;
-//   }else {
-//     res.locals.user = null;
-//   }
-//   next();
-// });
-//
-// //Local strategy - authentication is coming from internal check of records.
-// //By default the usernameField of the local strategy is set to 'username'
-// //By default the passwordField of the local strategy is set to 'password'
-// //If you want to check on anything else you need to over right the usernameField
-// //// by passing an object like below.
-// passport.use(new LocalStrategy({
-//   usernameField: 'email'
-// },(email, password, next)=>{
-//   //Check first if the database has an entry with that username.
-//   User.findOne({email}, (err, user)=>{
-//     if (err){
-//       return next(err);
-//     }
-//     //if user exits (fail) (authentication failed)-- (error message)
-//     else if(!user){
-//       return next(null, false, {message: "Incorrect email"});
-//
-//     }
-//     else if (!bcrypt.compareSync(password, user.password)) {
-//       return next(null, false, { message: "Incorrect password"});
-//     }else{
-//       //Return the user that we found.
-//       next(null,user);
-//     }
-//   });
-//
-// }));
-//
-// //Takes the user id and deserialized it. Takes user id and returns the
-// //corresponding user object.
-// passport.serializeUser((user,cb)=>{
-//   cb(null,user._id);
-// });
-//
-// passport.deserializeUser((id, cb)=>{
-//   User.findOne({"_id": id},(err,user)=>{
-//     if(err){
-//       return cb(err);
-//     }
-//     cb(null,user);
-//   });
-// });
+app.use(session({
+  secret: 'angular auth passport secret shhhh',
+  resave: true,
+  saveUninitialized: true,
+  cookie : { httpOnly: true, maxAge: 2419200000 }
+  //httponly, can only access cookie through http
+  //max makes is last longer
+}));
+
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+
+// const passportSetup = require('./config/passport');
+// passportSetup(passport);
+
+app.use((req,res,next)=>{
+  if (req.user){
+    res.locals.user = req.user;
+  }else {
+    res.locals.user = null;
+  }
+  next();
+});
+
+//Local strategy - authentication is coming from internal check of records.
+//By default the usernameField of the local strategy is set to 'username'
+//By default the passwordField of the local strategy is set to 'password'
+//If you want to check on anything else you need to over right the usernameField
+//// by passing an object like below.
+passport.use(new LocalStrategy({
+  usernameField: 'email'
+},(email, password, next)=>{
+  //Check first if the database has an entry with that username.
+  User.findOne({email}, (err, user)=>{
+    if (err){
+      return next(err);
+    }
+    //if user exits (fail) (authentication failed)-- (error message)
+    else if(!user){
+      return next(null, false, {message: "Incorrect email"});
+
+    }
+    else if (!bcrypt.compareSync(password, user.password)) {
+      return next(null, false, { message: "Incorrect password"});
+    }else{
+      //Return the user that we found.
+      next(null,user);
+    }
+  });
+
+}));
+
+//Takes the user id and deserialized it. Takes user id and returns the
+//corresponding user object.
+passport.serializeUser((user,cb)=>{
+  cb(null,user._id);
+});
+
+passport.deserializeUser((id, cb)=>{
+  User.findOne({"_id": id},(err,user)=>{
+    if(err){
+      return cb(err);
+    }
+    cb(null,user);
+  });
+});
 //--------------- END PASSPORT -----------------------------------
 
 //Middleware for redirect to angular index file.
