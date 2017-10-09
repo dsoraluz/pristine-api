@@ -118,10 +118,6 @@ passport.deserializeUser((id, cb)=>{
 });
 //--------------- END PASSPORT -----------------------------------
 
-//Middleware for redirect to angular index file.
-// app.use((req, res, next) => {
-//   res.sendfile(__dirname + '/public/index.html');
-// });
 
 //--------------- Routes Go Here ----------------------
 const index = require('./routes/index');
@@ -139,6 +135,10 @@ app.use('/api', customersApi);
 app.use('/api', repairDetailsApi);
 app.use('/api', applyApi);
 
+//Middleware for redirect to angular index file.
+app.use((req, res, next) => {
+  res.sendfile(__dirname + '/public/index.html');
+});
 
 
 // catch 404 and forward to error handler
