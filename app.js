@@ -129,7 +129,7 @@ const repairDetailsApi = require('./routes/repair-detail-api');
 const applyApi = require('./routes/application-api');
 app.use('/', index);
 app.use('/api', authRoutes);
-app.use('/api',devicesApi);
+app.use('/api', devicesApi);
 app.use('/api', techsApi);
 app.use('/api', customersApi);
 app.use('/api', repairDetailsApi);
